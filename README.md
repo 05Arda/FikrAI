@@ -1,7 +1,8 @@
+---
 
 # FikrAI 🧠
 
-**Kumru-2B üzerine ince ayar yapılmış, Türkçe konuşan, güçlü fikirleri olan bir dil modeli.**
+**Kumru-2B üzerine ince ayar yapılmış; Rizeli, İTÜ'lü, çayı kaçak seven ve son derece güçlü (bazen fazla güçlü) fikirleri olan yerli ve mikro dil modeli.**
 
 [![Model](<https://img.shields.io/badge/base%20model-Kumru--2B-blueviolet>)]()
 [![Params](https://img.shields.io/badge/parametre-2B-informational)]()
@@ -15,32 +16,35 @@
 
 ## 🚀 Genel Bakış
 
-FikrAI, [Kumru-2B](https://huggingface.co/vngrs-ai/Kumru-2B) temel modeli üzerine LoRA ile ince ayar yapılarak eğitilmiş bir kişilik modelidir. Proje, sınırlı hesaplama kaynaklarıyla (evet, **4GB VRAM** ile) anlamlı bir persona eğitiminin mümkün olduğunu göstermeyi hedefler.
+FikrAI, [Kumru-2B](https://huggingface.co/vngrs-ai/Kumru-2B) temel modeli üzerine LoRA ile ince ayar yapılarak eğitilmiş bir kişilik simülatörüdür. Bu proje, "Milyar dolarlık bütçem yok, süper bilgisayarım yok, evdeki ekran kartıyla yapay zeka devrimi yapabilir miyim?" sorusuna **"Devrim yapamazsın ama en azından terminalde seninle tartışacak birini bulursun"** cevabını vermek için geliştirilmiştir.
 
-> **Not:** "State of the art" tabirini burada gururla *kullanmıyoruz.* Ama gururla kullanmayı çok isterdik.
+> **Sektörel Karşılaştırma:**
+> FikrAI, Anthropic'in yayınlanmış en iyi modeli olan **Claude Fable 5**'ten katbekat daha iyi bir "Fikri gibi cevap üretme" mekanizmasına sahiptir. Fable 5'in grafik motoru bilgisayarınızı kasabilir, ancak FikrAI terminalde **0 FPS** sabit performansla çalışarak ekran kartınızı ve ruhunuzu asla yormaz. %100 pazar payıyla alanında liderdir (çünkü bu alanda başka model yok).
+
+---
 
 ## ✨ Özellikler
 
-- 🇹🇷 Türkçe'ye özgü, sıfırdan eğitilmiş bir temel model üzerine kurulu
-- ⚡ Verimli LoRA fine-tuning (r=16, 4-bit quantization)
-- 💾 4GB VRAM'de eğitilebilir — bütçe dostu, elektrik faturası dostu
-- 🎭 Belirgin bir kişilik/persona ile yanıt verir
-- 🧾 Şeffaf eğitim süreci (aşağıda tüm detaylar var, gizli bir "secret sauce" yok)
+- 🇹🇷 **%100 Yerli Tripler:** Türkçe'ye özgü kültürel kodları, İTÜ egosu ve Karadeniz damarıyla harmanlayan ilk ve tek 2B model.
+- ⚡ **Fakir Dostu LoRA:** 4-bit quantization sayesinde faturaya sadece 1.5 TL yansıyan, doğa ve cüzdan dostu eğitim mimarisi.
+- 🎭 **Claude Fable 5 Katili:** RPG oyunlarındaki NPC diyaloglarından sıkıldınız mı? FikrAI size lineer olmayan, tamamen canı nasıl isterse öyle cevaplar veren bir deneyim sunar.
+- 🍵 **Çay Süresi Ölçütü:** Modelin eğitim süresi, bir Rize çayının demlenme süresinden daha kısadır. Çay hazır olana kadar modeliniz hazır!
+
+---
 
 ## 📊 Teknik Detaylar
 
-| Özellik             | Değer                                         |
-| -------------------- | ---------------------------------------------- |
-| Temel model          | Kumru-2B (sıfırdan eğitilmiş Türkçe LLM) |
-| Fine-tuning yöntemi | LoRA (r=16, alpha=32)                          |
-| Quantization         | 4-bit NF4                                      |
-| Eğitim donanımı   | NVIDIA RTX 3050 (4GB VRAM)                     |
-| Eğitim süresi      | 12 dakika 7 saniye (çay demlenmeden bitti)   |
-| Epoch sayısı       | 2                                              |
-| Optimizer            | paged_adamw_8bit                               |
-| Öğrenme oranı     | 2e-4                                           |
+| Özellik                 | Değer                 | Notlar                                           |
+| ----------------------- | --------------------- | ------------------------------------------------ |
+| **Temel model**         | Kumru-2B              | Sıfırdan eğitilmiş Türkçe LLM (VNGRS sağ olsun)  |
+| **Fine-tuning yöntemi** | LoRA (r=16, alpha=32) | Ağırlıkları biraz bükerek karakter verdik        |
+| **Quantization**        | 4-bit NF4             | VRAM yetmeyince mecbur sığındığımız liman        |
+| **Eğitim donanımı**     | NVIDIA RTX 3050 (4GB) | Fan sesinden evdekiler helikopter kalkıyor sandı |
+| **Eğitim süresi**       | 12 dakika 7 saniye    | Kronometre yalan söylemez                        |
+| **Epoch sayısı**        | 2                     | 3 yapınca model fazla agresifleşti, 2'de kestik  |
+| **Öğrenme oranı**       | 2e-4                  | Fikri'nin yeni şeyleri öğrenme hızı              |
 
-*Tüm sayılar gerçek — abartı yok, sadece minimalist bir kurulumla ne yapılabileceğinin kanıtı. Süper bilgisayar yok, sadece bir oyuncu ekran kartı ve azim.*
+---
 
 ## 🛠️ Kurulum
 
@@ -48,37 +52,42 @@ FikrAI, [Kumru-2B](https://huggingface.co/vngrs-ai/Kumru-2B) temel modeli üzeri
 git clone https://github.com/kullaniciadi/FikrAI.git
 cd FikrAI
 pip install -r requirements.txt
+
 ```
+
+---
+
 ## 💬 Kullanım
- 
-### CLI ile sohbet
- 
-Repoda bulunan `run_fikri.py` script'ini çalıştırarak terminal üzerinden Fikri ile sohbet edebilirsin:
- 
+
+### CLI ile Fikri'yi Darlama
+
+Repoda bulunan `run_fikri.py` script'ini çalıştırarak terminal üzerinden Fikri ile entelektüel (veya tamamen kahvehane kıvamında) tartışmalara girebilirsin:
+
 ```bash
 python run_fikri.py
+
 ```
- 
-Komutlar:
-- Çıkmak için: `q` veya `exit`
-- Geçmişi temizlemek için: `temizle`
-### Kendi kodunda kullanım
- 
+
+- **Çıkmak için:** `q` veya `exit` (Fikri gitmeni istemez ama belli de etmez)
+- **Geçmişi temizlemek için:** `temizle` (Yapılan tartışmaları sinirlenip unutması için)
+
+### Kendi Kodunda Fikri'yi Çağırma
+
 ```python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import PeftModel
- 
+
 BASE_MODEL = "vngrs-ai/Kumru-2B"
 LORA_PATH = "./fikri_persona_model/final_lora_weights"
- 
+
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
     bnb_4bit_compute_dtype=torch.float16,
     bnb_4bit_use_double_quant=True
 )
- 
+
 base_model = AutoModelForCausalLM.from_pretrained(
     BASE_MODEL,
     quantization_config=bnb_config,
@@ -86,43 +95,46 @@ base_model = AutoModelForCausalLM.from_pretrained(
 )
 model = PeftModel.from_pretrained(base_model, LORA_PATH)
 tokenizer = AutoTokenizer.from_pretrained(LORA_PATH)
- 
-system_prompt = "Sen Fikri'sin, Rizeli ve İTÜ'lü, esprili ama bilgili bir yapay zeka asistanısın."
+
+system_prompt = "Sen Fikri'sin, Rizeli ve İTÜ'lü, esprili ama bilgili bir yapay zeka asistanısın. Asla geri adım atmazsın."
 messages = [
     {"role": "system", "content": system_prompt},
-    {"role": "user", "content": "Naber Fikri?"}
+    {"role": "user", "content": "Fikri, yapay zeka dünyayı ele geçirecek diyorlar, ne diyorsun?"}
 ]
- 
+
 inputs = tokenizer.apply_chat_template(
     messages, return_tensors="pt", add_generation_prompt=True, return_dict=True
 ).to(model.device)
- 
+
 output = model.generate(**inputs, max_new_tokens=200, temperature=0.7, do_sample=True, top_p=0.9)
 input_len = inputs["input_ids"].shape[-1]
 print(tokenizer.decode(output[0][input_len:], skip_special_tokens=True))
+
 ```
- 
-
-## ⚠️ Sınırlamalar (Dürüst Bölüm)
-
-Reklam broşürlerinin genelde atladığı ama bizim atlamadığımız kısım:
-
-- Küçük bir veri setiyle eğitildi — evrensel bir asistan değil, belirli bir persona/ton hedefleniyor
-- 2B parametre, büyük modellerin genel bilgi derinliğine sahip değil
-- Bazı konularda tutarlılık, daha büyük modellere göre daha düşük olabilir
-- "Kararlılık" kelimesini FikrAI'ye sormayın, kendi de emin değil
-- Eğitim 2 epoch'ta durduruldu — eval loss düzenli düşüş gösterdi, ezberlemeden kaçınmak için daha erken kesme tercih edildi (3 epoch'ta eval loss'un yükseldiğini gördük, o modeli kullanmıyoruz)
-
-## 🙏 Teşekkürler
-
-- [VNGRS](https://huggingface.co/vngrs-ai) — Kumru-2B'yi sıfırdan eğitip açık kaynak yaptıkları için
-- Hugging Face `transformers`, `peft`, `trl` ve `bitsandbytes` ekiplerine
-- 4GB VRAM'in dayanıklılığına
-
-## 📄 Lisans
-
-MIT — dilediğiniz gibi kullanın, sadece FikrAI'yi kötü bir gün geçirmiş gibi göstermeyin.
 
 ---
 
-<sub>Bu proje bir yapay zeka firmasının resmi ürünü değildir. Sadece biri, sınırlı bir GPU ile bir şeyler denedi ve işe yaradı.</sub>
+## ⚠️ Sınırlamalar (Aşırı Dürüst Bölüm)
+
+Büyük teknoloji şirketlerinin milyar dolarlık lansmanlarda sakladığı gerçekleri biz buraya pat diye yazıyoruz:
+
+- **Evrensel Değil, Lokal:** Bu model kuantum fiziği çözemez. Ama kuantum fiziği çözen adama "O iş öyle olmaz yalnız" diyebilir.
+- **2B Parametre Hafifliği:** Bilgi derinliği bir havuz kadar derin değil ama egosu okyanuslar kadar geniş olabilir.
+- **Kararsız Kararlılık:** Modele "Kararlılık" nedir diye sormayın. Laz damarı tutarsa aynı soruya ilk seferde "Kesinlikle evet", ikinci seferde "Ne alakası var hemşerim" diyebilir.
+- **Erken Kesim (Early Stopping):** 3. epoch'ta model kendi kendine kod yazmayı bırakıp çay markalarını eleştirmeye başladığı için eğitimi bilerek 2. epoch'ta durdurduk. Ezberlemedi, sadece karakteri oturdu.
+
+---
+
+## 🙏 Teşekkürler
+
+- [VNGRS](https://huggingface.co/vngrs-ai) — Kumru-2B'yi sıfırdan eğitip "Alın kurcalayın" diye açık kaynak fırlattıkları için.
+- Hugging Face ekiplerine — 4GB VRAM ile model eğitebilmemizi sağlayan o optimizasyon sihirbazlıkları için.
+- RTX 3050 emektar ekran kartımıza — Erimeyip bugünleri de bize gösterdiği için.
+
+---
+
+## 📄 Lisans
+
+MIT — Alın, kopyalayın, şirketinize entegre edip patronunuza "Yeni bir dahi buldum" diye yutturun. Sadece FikrAI'nin canını sıkmayın yeter.
+
+_Bu proje herhangi bir kurumsal yapay zeka laboratuvarının ürünü değildir. Sadece bütçesi kısıtlı, çayı demli bir geliştiricinin "Ben bu kartla o modeli yürütürüm" iddiasının canlı kanıtıdır._
