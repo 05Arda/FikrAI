@@ -49,22 +49,59 @@ git clone https://github.com/kullaniciadi/FikrAI.git
 cd FikrAI
 pip install -r requirements.txt
 ```
-
 ## 💬 Kullanım
-
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import PeftModel
-
-base_model = AutoModelForCausalLM.from_pretrained("vngrs-ai/Kumru-2B")
-model = PeftModel.from_pretrained(base_model, "./fikri_persona_model/final_lora_weights")
-tokenizer = AutoTokenizer.from_pretrained("./fikri_persona_model/final_lora_weights")
-
-messages = [{"role": "user", "content": "Naber?"}]
-inputs = tokenizer.apply_chat_template(messages, return_tensors="pt", add_generation_prompt=True)
-output = model.generate(inputs, max_new_tokens=100)
-print(tokenizer.decode(output[0], skip_special_tokens=True))
+ 
+### CLI ile sohbet
+ 
+Repoda bulunan `run_fikri.py` script'ini çalıştırarak terminal üzerinden Fikri ile sohbet edebilirsin:
+ 
+```bash
+python run_fikri.py
 ```
+ 
+Komutlar:
+- Çıkmak için: `q` veya `exit`
+- Geçmişi temizlemek için: `temizle`
+### Kendi kodunda kullanım
+ 
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from peft import PeftModel
+ 
+BASE_MODEL = "vngrs-ai/Kumru-2B"
+LORA_PATH = "./fikri_persona_model/final_lora_weights"
+ 
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_use_double_quant=True
+)
+ 
+base_model = AutoModelForCausalLM.from_pretrained(
+    BASE_MODEL,
+    quantization_config=bnb_config,
+    device_map="auto"
+)
+model = PeftModel.from_pretrained(base_model, LORA_PATH)
+tokenizer = AutoTokenizer.from_pretrained(LORA_PATH)
+ 
+system_prompt = "Sen Fikri'sin, Rizeli ve İTÜ'lü, esprili ama bilgili bir yapay zeka asistanısın."
+messages = [
+    {"role": "system", "content": system_prompt},
+    {"role": "user", "content": "Naber Fikri?"}
+]
+ 
+inputs = tokenizer.apply_chat_template(
+    messages, return_tensors="pt", add_generation_prompt=True, return_dict=True
+).to(model.device)
+ 
+output = model.generate(**inputs, max_new_tokens=200, temperature=0.7, do_sample=True, top_p=0.9)
+input_len = inputs["input_ids"].shape[-1]
+print(tokenizer.decode(output[0][input_len:], skip_special_tokens=True))
+```
+ 
 
 ## ⚠️ Sınırlamalar (Dürüst Bölüm)
 
