@@ -5,7 +5,7 @@ import os
 # Ayarlar
 TARGET_USER = "Fikri İTÜ Cevher"
 INPUT_FILES = ["raw_sources/WhatsApp-Chat mit Fikri İTÜ Cevher.txt", "raw_sources/WhatsApp-Chat mit aleyküm selam lan berkay or.txt", "raw_sources/WhatsApp-Chat mit tenischain.txt", "raw_sources/WhatsApp-Chat mit Yozgat Ya.txt"]
-OUTPUT_FILE = "processed_data/fikri_egitim_verisi.json"
+OUTPUT_FILE = "processed_data/fikri_egitim_verisi_2.json"
 
 # Hariç tutulacak metinler
 ignored_texts = [
@@ -19,7 +19,7 @@ ignored_texts = [
 ]
 
 # Grup karmaşasını önlemek için Fikri'den önce bakılacak maksimum mesaj sayısı
-MAX_HISTORY = 5
+MAX_HISTORY = 2
 
 # WhatsApp satır yakalama regex'i
 pattern = re.compile(r'^(\d{2}\.\d{2}\.\d{2}, \d{2}:\d{2}) - ([^:]+): (.*)$')

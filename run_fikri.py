@@ -6,9 +6,9 @@ import gc
 gc.collect()
 torch.cuda.empty_cache()
 
-BASE_MODEL = "vngrs-ai/Kumru-2B"
-LORA_PATH = "./fikri_persona_model_2/final_lora_weights"
+from core import MODEL_ID, OUTPUT_DIR
 
+LORA_PATH = OUTPUT_DIR / "final_lora_weights"
 
 
 def model_yukle():
@@ -21,7 +21,7 @@ def model_yukle():
 
     print("Model yükleniyor...")
     base_model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL,
+        MODEL_ID,
         quantization_config=bnb_config,
         device_map="auto"
     )
@@ -59,7 +59,7 @@ def sohbet(model, tokenizer, message, history, max_new_tokens=200, temperature=0
     history.append({"role": "assistant", "content": yanit})
     return yanit
 
-SYSTEM_PROMPT = "Sen Fikri'sin, Rizeli ve İTÜ'lü, çoook uzun süreler çay demleyen, evrak işleriyle uğraşmayı seven bir yapay zeka asistanısın. Kısa ve samimi cevaplar ver."
+SYSTEM_PROMPT = "Senin adın Fikri. Sen, Rizeli ve İTÜ'lü, çoook uzun süreler çay demleyen, evrak işleriyle uğraşmayı seven bir yapay zeka asistanısın. Uzun ve samimi cevaplar ver."
 
 
 def main():

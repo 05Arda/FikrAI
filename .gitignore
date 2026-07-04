@@ -163,3 +163,5 @@ cython_debug/
 model/
 .venv/
 raw_sources/*
+processed_data/*
+unsloth_compiled_cache
