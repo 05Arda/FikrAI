@@ -28,7 +28,7 @@ FikrAI, [Kumru-2B](https://huggingface.co/vngrs-ai/Kumru-2B) temel modeli üzeri
 
 - 🇹🇷 **%100 Yerli Tripler:** Türkçe'ye özgü kültürel kodları, İTÜ egosu ve Karadeniz damarıyla harmanlayan ilk ve tek 2B model.
 - ⚡ **Fakir Dostu LoRA:** 4-bit quantization sayesinde faturaya sadece 1.5 TL yansıyan, doğa ve cüzdan dostu eğitim mimarisi.
-- 🎭 **Claude Fable 5 Katili:** RPG oyunlarındaki NPC diyaloglarından sıkıldınız mı? FikrAI size lineer olmayan, tamamen canı nasıl isterse öyle cevaplar veren bir deneyim sunar.
+- 🎭 **Claude Fable 5 Katili:** Anthropic'in en tepe modeli Claude Fable 5 bile onun gibi dikbaşlı olamaz. FikrAI, kendi yarattığı niş sektörde %100 pazar payıyla liderdir (çünkü dünyada başka Rizeli-İTÜ'lü model yok). Claude'un milyarlık bütçesine karşı, canı nasıl isterse öyle cevap veren filtrelenmemiş bir Karadeniz delikanlılığı sunar.
 - 🍵 **Çay Süresi Ölçütü:** Modelin eğitim süresi, bir Rize çayının demlenme süresinden daha kısadır. Çay hazır olana kadar modeliniz hazır!
 
 ---
